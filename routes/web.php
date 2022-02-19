@@ -4,10 +4,33 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function ()
 {
+
+    /**
+     * Route Permission x profile
+     */
+    Route::get('profiles/permissons/{idPermission}/available', 'ACL\PermissionProfileController@profiles')->name('profiles_permissons_available_profiles');
+    Route::get('profiles/{id}/permisson/{idPerssion}/detach', 'ACL\PermissionProfileController@detach')->name('profiles_permissons_detach');
+    Route::post('profiles/{id}/permissons/attach', 'ACL\PermissionProfileController@attach')->name('profiles_permissons_attach');
+    Route::any('profiles/{id}/permissons/available', 'ACL\PermissionProfileController@permissionsAvailable')->name('profiles_permissons_available');
+    Route::get('profiles/{id}/permissons', 'ACL\PermissionProfileController@permissions')->name('profiles_permissons');
+    
+
+    /**
+     * Route Permission
+     */
+
+    route::any('permission/search','ACL\PermissionController@search')->name('permission_search');
+    route::delete('permission/{id}/destroy', 'ACL\PermissionController@destroy')->name('permission_destroy');
+    route::get('permission/{id}/show', 'ACL\PermissionController@show')->name('permission_show');
+    route::put('permission/{id}/edit', 'ACL\PermissionController@update')->name('permission_update');
+    route::get('permission/{id}/edit', 'ACL\PermissionController@edit')->name('permission_edit');
+    route::post('permission/store', 'ACL\PermissionController@store')->name('permission_store');
+    route::get('permission/create', 'ACL\PermissionController@create')->name('permission_create');
+    Route::get('permission', 'ACL\PermissionController@index')->name('permission_index');
+
     /**
      * Route Profiles
      */
-    
     route::any('profiles/search','ACL\ProfileController@search')->name('profiles_search');
     route::delete('profiles/{id}/destroy', 'ACL\ProfileController@destroy')->name('profiles_destroy');
     route::get('profiles/{id}/show', 'ACL\ProfileController@show')->name('profiles_show');

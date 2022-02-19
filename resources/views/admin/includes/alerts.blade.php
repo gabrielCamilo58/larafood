@@ -11,3 +11,14 @@
         {{session('message')}}
     </div>
 @endif
+
+@if(session('info'))
+    <div class="alert alert-warning">
+        {{session('info')}}
+    </div>
+@endif
+@if(session('indisponivel'))
+    <div class="alert alert-warning">
+        {{session('indisponivel')}}
+    </div>
+@endif
