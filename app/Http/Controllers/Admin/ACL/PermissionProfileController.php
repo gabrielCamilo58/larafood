@@ -75,4 +75,15 @@ class PermissionProfileController extends Controller
 
         return view('admin.pages.permission.profile', compact('permission', 'profiles'));
     }
+
+    public function searchProfilePermission(Request $request, $idPermission)
+    {
+        $profile = $this->profile->find($idPermission);
+        $filters = $request->except('_token');
+
+        $permissions = $profile->permissions()->where('permissions.name', 'LIKE', "%{$request->filter}%")->paginate();
+
+        return view('admin.pages.profiles.permissions.permissions', compact('profile', 'permissions', 'filters'));
+    }
+
 }

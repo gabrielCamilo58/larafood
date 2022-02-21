@@ -2,12 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function ()
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function ()
 {
+    /**
+     * Route Plan x Profile 
+     */
+    Route::post('profile/plan/{id}/available/search', 'ACL\PlanProfileController@searchProfilePlan')->name('plan_profile_available_search');
+    Route::get('profile/plan/{id}/available', 'ACL\PlanProfileController@profiles')->name('plan_profile_available_Profile');
+    Route::get('profile/{id}/plan/{idP}/detach', 'ACL\PlanProfileController@detach')->name('plan_profile_detach');
+    Route::post('profile/{id}/plan/attach', 'ACL\PlanProfileController@attach')->name('plan_profile_attach');
+    Route::any('profile/{id}/plan/available', 'ACL\PlanProfileController@planAvailable')->name('plan_profile_available');
+    Route::get('profile/{id}/plan', 'ACL\PlanProfileController@plan')->name('plan_profile');
 
     /**
-     * Route Permission x profile
+     * Route Permission x 
      */
+    Route::post('profile/permissions/{id}/available/search', 'ACL\PermissionProfileController@searchProfilePermission')->name('profiles_permission_search');
     Route::get('profiles/permissons/{idPermission}/available', 'ACL\PermissionProfileController@profiles')->name('profiles_permissons_available_profiles');
     Route::get('profiles/{id}/permisson/{idPerssion}/detach', 'ACL\PermissionProfileController@detach')->name('profiles_permissons_detach');
     Route::post('profiles/{id}/permissons/attach', 'ACL\PermissionProfileController@attach')->name('profiles_permissons_attach');
@@ -73,6 +83,9 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','App\Http\Controllers\Site\SiteController@index')->name('site_home');
+
+/**
+ * Auth Routes
+ */
+Auth::routes();

@@ -11,11 +11,26 @@ class Profile extends Model
     
     protected $fillable = ['name', 'description'];
 
+    /**
+     *  Get Permissions
+     */
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
     }
 
+    /**
+     *  Get Plans
+     */
+
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class);
+    }
+
+    /**
+     * get permissios available
+     */
     public function permissionsAvailable($filter = null)
     {
 
@@ -32,4 +47,33 @@ class Profile extends Model
         
         return $permissions;
     }
+
+    /**
+     * Get plans available
+     */
+
+     public function plansAvailable($filter = null)
+     {
+        $plans = Plan::whereNotIn('id', function ($querry){
+            $querry->select('plan_profile.plan_id');
+            $querry->from('plan_profile');
+            $querry->whereRaw("plan_profile.profile_id={$this->id}");
+        })->where(function ($querryFilter) use($filter){
+            if($filter)
+            $querryFilter->where('plans.name', 'LIKE', "%{$filter}%");
+        })->paginate();
+
+        return $plans;
+     }
+
+     /**
+      * Get plans search
+      */
+
+      public function search($filter = null)
+      {
+        $plans = $this->plans()->where('plans.name', 'LIKE', "%{$filter}%")->paginate();
+
+        return $plans;
+      }
 }
