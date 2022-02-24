@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\ACL;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProfileRequest;
-use App\Models\Profile;
+use App\Models\Profile; 
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

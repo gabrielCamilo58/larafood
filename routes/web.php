@@ -4,6 +4,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function ()
 {
+    /** 
+     * Route Categories
+     */
+    route::any('categories/search','CategoryController@search')->name('categories_search');
+    route::delete('categories/{id}/destroy', 'CategoryController@destroy')->name('categories_destroy');
+    route::get('categories/{id}/show', 'CategoryController@show')->name('categories_show');
+    route::put('categories/{id}/edit', 'CategoryController@update')->name('categories_update');
+    route::get('categories/{id}/edit', 'CategoryController@edit')->name('categories_edit');
+    route::post('categories/store', 'CategoryController@store')->name('categories_store');
+    route::get('categories/create', 'CategoryController@create')->name('categories_create');
+    Route::get('categories', 'CategoryController@index')->name('categories_index');
+
+
+     /** 
+     * Route Users
+     */
+    route::any('users/search','UserController@search')->name('users_search');
+    route::delete('users/{id}/destroy', 'UserController@destroy')->name('users_destroy');
+    route::get('users/{id}/show', 'UserController@show')->name('users_show');
+    route::put('users/{id}/edit', 'UserController@update')->name('users_update');
+    route::get('users/{id}/edit', 'UserController@edit')->name('users_edit');
+    route::post('users/store', 'UserController@store')->name('users_store');
+    route::get('users/create', 'UserController@create')->name('users_create');
+    Route::get('users', 'UserController@index')->name('users_index');
+
     /**
      * Route Plan x Profile 
      */
@@ -54,12 +79,12 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('aut
     /**
      * Routes Details Plans
      */
+    Route::get('plans/{url}/details/create', 'DetailPlanController@create')->name('details_plan_create');
     Route::delete('plans/{url}/details/{idDetails}', 'DetailPlanController@destroy')->name('details_plan_destroy');
     Route::get('plans/{url}/details/{idDetails}', 'DetailPlanController@show')->name('details_plan_show');
     Route::put('plans/{url}/details/{idDetails}/edit', 'DetailPlanController@update')->name('details_plan_update');
     Route::get('plans/{url}/details/{idDetails}/edit', 'DetailPlanController@edit')->name('details_plan_edit');
     Route::post('plans/{url}/details', 'DetailPlanController@store')->name('details_plan_store');
-    Route::get('plans/{url}/details/create', 'DetailPlanController@create')->name('details_plan_create');
     Route::get('plans/{url}/details', 'DetailPlanController@index')->name('details_plan_index');
 
 
@@ -67,22 +92,26 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('aut
     /**
      * Routes Plans
      */
+    Route::post('plans', 'PlanController@store')->name('plans_store');
     Route::get('plans', 'PlanController@index')->name('plans_index');
     Route::get('plans/create', 'PlanController@create')->name('plans_create');
     Route::any('plans/search', 'PlanController@search')->name('plans_search');
-    Route::post('plans', 'PlanController@store')->name('plans_store');
     Route::get('plans/{url}', 'PlanController@show')->name('plans_show');
     Route::delete('plans/{url}', 'PlanController@destroy')->name('plans_destroy');
     Route::get('plans/{url}/edit', 'PlanController@edit')->name('plans_edit');
     Route::put('plans/{url}', 'PlanController@update')->name('plans_update');
     
+    
     /**
      * Home Dashboard
      */
-    Route::get('/', 'App\Http\Controllers\Admin\PlanController@index')->name('admin_index');
+    Route::get('/', 'PlanController@index')->name('admin_index');
 });
 
-
+/**
+ * Routes site
+ */
+Route::get('/plan/{url}', 'App\Http\Controllers\Site\SiteController@plan')->name('plan_subscription');
 Route::get('/','App\Http\Controllers\Site\SiteController@index')->name('site_home');
 
 /**

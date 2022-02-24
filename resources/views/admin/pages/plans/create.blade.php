@@ -12,7 +12,7 @@
             <form action="{{route('plans_store')}}" class="form" method="POST">
                 @csrf
 
-                @include('admin.pages.profiles._partials.form')
+                @include('admin.pages.plans._partials.form')
 
             </form>
         </div>

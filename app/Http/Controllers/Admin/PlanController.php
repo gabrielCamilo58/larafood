@@ -27,13 +27,13 @@ class PlanController extends Controller
     }
 
     public function create()
-    {
+    { 
         return view('admin.pages.plans.create');
     }
 
     public function store(StoreUpdatePlan $request)
     {
-       
+      
         $this->repository->create( $request->all());
 
         return redirect()->route('plans_index');

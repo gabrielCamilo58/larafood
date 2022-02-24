@@ -241,6 +241,16 @@ return [
             'url'  => 'admin/permission',
             'icon' => 'fas fa-lock'
         ],
+        [
+            'text' => 'Usuarios',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users'
+        ],
+        [
+            'text' => 'categorias',
+            'url'  => 'admin/categories',
+            'icon' => 'fas fa-layer-group'
+        ],
     ],
 
     /*
