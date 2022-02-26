@@ -4,6 +4,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function ()
 {
+     /** 
+     * Route Products
+     */
+    route::any('products/search','ProductController@search')->name('products_search');
+    route::delete('products/{id}/destroy', 'ProductController@destroy')->name('products_destroy');
+    route::get('products/{id}/show', 'ProductController@show')->name('products_show');
+    route::put('products/{id}/edit', 'ProductController@update')->name('products_update');
+    route::get('products/{id}/edit', 'ProductController@edit')->name('products_edit');
+    route::post('products/store', 'ProductController@store')->name('products_store');
+    route::get('products/create', 'ProductController@create')->name('products_create');
+    Route::get('products', 'ProductController@index')->name('products_index');
+
     /** 
      * Route Categories
      */

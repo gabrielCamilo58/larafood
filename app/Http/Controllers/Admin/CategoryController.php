@@ -30,6 +30,59 @@ class CategoryController extends Controller
     {
         $this->category->create($request->all());
 
-        return redirect()-route('categories_index');
+        return redirect()->route('categories_index');
+    }
+
+    public function show($id)
+    {
+        if(!$category = $this->category->find($id))
+            return redirect()->back();
+
+        return view('admin.pages.categories.show', compact('category'));
+    }
+
+    public function destroy($id)
+    {
+        if(!$category = $this->category->find($id))
+            return redirect()->back();
+
+        $category->delete();
+
+        $categories = $this->category->paginate();
+        return view('admin.pages.categories.index', compact('categories'));
+    }
+
+    public function edit($id){
+
+        if(!$category = $this->category->find($id))
+            return redirect()->back();
+        
+        return view('admin.pages.categories.edit', compact('category'));
+        
+    }
+    public function update(StoreUpdateCategory $request, $id)
+    {
+        if(!$category = $this->category->find($id))
+            return redirect()->back();
+        
+        $category->update($request->all());
+
+        $categories = $this->category->paginate();
+        return view('admin.pages.categories.index', compact('categories'));
+    }
+
+    public function search(Request $request)
+    {
+        $categories = $this->category->where( function ($query) use ($request) {
+            if($request->filter){
+                $query
+                    ->where('name','LIKE', "%{$request->filter}%")
+                    ->orWhere('description','LIKE', "%{$request->filter}%");
+            }
+        })->latest()->paginate();
+
+        $filters = $request->only('filter');
+
+        return view('admin.pages.categories.index', ['categories' => $categories,'filters' => $filters]);
     }
 }

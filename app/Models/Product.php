@@ -6,14 +6,15 @@ use App\Tenant\Traits\TenantTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Product extends Model
 {
     use TenantTrait;
     use HasFactory;
-    protected $fillable = ['name', 'url', 'description'];
 
-    public function products()
+    protected $fillable =['name', 'url','price','description', 'image'];
+
+    public function categories()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Category::class);
     }
 }

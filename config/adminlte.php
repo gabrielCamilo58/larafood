@@ -251,6 +251,11 @@ return [
             'url'  => 'admin/categories',
             'icon' => 'fas fa-layer-group'
         ],
+        [
+            'text' => 'produtos',
+            'url'  => 'admin/products',
+            'icon' => 'fas fa-layer-group'
+        ],
     ],
 
     /*
