@@ -1,20 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Categorias')
+@section('title', "Categorias do produto {$product->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"> <a href="{{route('admin_index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"> <a href="{{route('categories_index')}}">Usarios</a></li>
+        <li class="breadcrumb-item active"> <a href="{{route('products_index')}}">Produtos</a></li>
     </ol>
 
-    <h1>Categorias <a href="{{route ('categories_create')}}" class="btn btn-dark">ADD</a></h1>
+    <h1> Categorias do produto {{$product->name}} <a href="{{route ('category_product_available', $product->id)}}" class="btn btn-dark">ADD</a></h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{route('categories_search')}}" method="POST" class="form form-inline">
+            <form action="{{route('category_product_available_search', $product->id)}}" method="POST" class="form form-inline">
             @csrf
             <input type="text" name="filter" placeholder="Nome:" class="form-control">
             <button class="btn btn-dark">Pesquisar</button>
@@ -36,8 +36,7 @@
                             <td>{{$category->name}}</td>
                             <td>{{$category->description}}</td>
                             <td>
-                                <a href="{{route('categories_edit', $category->id)}}" class="btn btn-info">Editar</a>
-                                <a href=" {{route('categories_show', $category->id)}} " class="btn btn-warning">Ver</a>
+                                <a href="{{route('category_product_detach', [$product->id, $category->id])}}" class="btn btn-danger">Desvincular</a>
                             </td>
                         </tr>
                      @endforeach

@@ -4,6 +4,39 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function ()
 {
+
+    route::any('tenants/search','TenantsController@search')->name('tenants_search');
+    route::delete('tenants/{id}/destroy', 'TenantsController@destroy')->name('tenants_destroy');
+    route::get('tenants/{id}/show', 'TenantsController@show')->name('tenants_show');
+    route::put('tenants/{id}/edit', 'TenantsController@update')->name('tenants_update');
+    route::get('tenants/{id}/edit', 'TenantsController@edit')->name('tenants_edit');
+    route::post('tenants/store', 'TenantsController@store')->name('tenants_store');
+    route::get('tenants/create', 'TenantsController@create')->name('tenants_create');
+    Route::get('tenants', 'TenantsController@index')->name('tenants_index');
+    
+    /**
+     * Route Table
+     */
+    route::any('tables/search','TableController@search')->name('tables_search');
+    route::delete('tables/{id}/destroy', 'TableController@destroy')->name('tables_destroy');
+    route::get('tables/{id}/show', 'TableController@show')->name('tables_show');
+    route::put('tables/{id}/edit', 'TableController@update')->name('tables_update');
+    route::get('tables/{id}/edit', 'TableController@edit')->name('tables_edit');
+    route::post('tables/store', 'TableController@store')->name('tables_store');
+    route::get('tables/create', 'TableController@create')->name('tables_create');
+    Route::get('tables', 'TableController@index')->name('tables_index');
+
+    /**
+     * Route Category x Product
+     */
+    Route::post('category/product/{id}/available/search', 'CategoryProductController@searchCategoryProduct')->name('category_product_available_search');
+    Route::get('category/product/{id}/available', 'CategoryProductController@categorys')->name('category_product_available_category');
+    Route::get('category/{id}/product/{idP}/detach', 'CategoryProductController@detach')->name('category_product_detach');
+    Route::post('category/{id}/product/attach', 'CategoryProductController@attach')->name('category_product_attach');
+    Route::any('category/{id}/product/available', 'CategoryProductController@categoryAvailable')->name('category_product_available');
+    Route::get('category/{id}/product', 'CategoryProductController@categories')->name('category_product');
+
+
      /** 
      * Route Products
      */
@@ -52,7 +85,7 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('aut
     Route::get('profile/{id}/plan', 'ACL\PlanProfileController@plan')->name('plan_profile');
 
     /**
-     * Route Permission x 
+     * Route Permission x Profiles
      */
     Route::post('profile/permissions/{id}/available/search', 'ACL\PermissionProfileController@searchProfilePermission')->name('profiles_permission_search');
     Route::get('profiles/permissons/{idPermission}/available', 'ACL\PermissionProfileController@profiles')->name('profiles_permissons_available_profiles');

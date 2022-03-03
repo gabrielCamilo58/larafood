@@ -14,6 +14,7 @@ class ProductController extends Controller
     public function __construct(Product $product)
     {
         $this->product = $product;
+        $this->middleware(['can:products']);
     }
 
     public function index()

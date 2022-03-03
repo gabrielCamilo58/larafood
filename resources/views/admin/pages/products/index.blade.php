@@ -44,6 +44,7 @@
                             <td>
                                 <a href="{{route('products_edit', $product->id)}}" class="btn btn-info">Editar</a>
                                 <a href=" {{route('products_show', $product->id)}} " class="btn btn-warning">Ver</a>
+                                <a href=" {{route('category_product', $product->id)}} " class="btn btn-warning"><i class="fas fa-layer-group"></i></a>
                             </td>
                         </tr>
                      @endforeach
