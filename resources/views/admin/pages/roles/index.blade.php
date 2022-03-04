@@ -1,20 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Usarios')
+@section('title', 'Cargos')
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"> <a href="{{route('admin_index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"> <a href="{{route('users_index')}}">Usarios</a></li>
+        <li class="breadcrumb-item active"> <a href="{{route('roles_index')}}">Cargos</a></li>
     </ol>
 
-    <h1>Usarios <a href="{{route ('users_create')}}" class="btn btn-dark">ADD</a></h1>
+    <h1>Cargoss<a href="{{route ('roles_create')}}" class="btn btn-dark">ADD</a></h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{route('users_search')}}" method="POST" class="form form-inline">
+            <form action="{{route('roles_search')}}" method="POST" class="form form-inline">
             @csrf
             <input type="text" name="filter" placeholder="Nome:" class="form-control">
             <button class="btn btn-dark">Pesquisar</button>
@@ -25,20 +25,19 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>E-mail</th>
-                        <th style="width: 290px">Ações</th>
+                        <th style="width: 250px">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     
-                    @foreach ($users as $user)
+                    @foreach ($roles as $role)
                         <tr>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
+                            <td>{{$role->name}}</td>
                             <td>
-                                <a href="{{route('users_edit', $user->id)}}" class="btn btn-info">Editar</a>
-                                <a href=" {{route('users_show', $user->id)}} " class="btn btn-warning">Ver</a>
-                                <a href=" {{route('roles_users_available_roles', $user->id)}} " class="btn btn-success"><i class="fas fa-address-card"></i></a>
+                                <a href="{{route('roles_edit', $role->id)}}" class="btn btn-info">Editar</a>
+                                <a href=" {{route('roles_show', $role->id)}} " class="btn btn-warning">Ver</a>
+                                <a href="{{route('roles_permissons', $role->id)}}" class="btn btn-warning"><i class="fas fa-lock"></i></a> 
+                                <a href="{{route('roles_users', $role->id)}}" class="btn btn-warning"><i class="fas fa-users"></i></a>
                             </td>
                         </tr>
                      @endforeach
@@ -50,9 +49,9 @@
         <div class="card-footer">
 
             @if(isset($filters))
-                {!! $users->appends($filters)->links() !!}
+                {!! $roles->appends($filters)->links() !!}
             @else
-                {!! $users->links() !!}
+                {!! $roles->links() !!}
             @endif
 
         </div>

@@ -42,7 +42,7 @@ class PermissionProfileController extends Controller
     }
     public function attach(Request $request, $idProfile)
     {
-        if(!$profile = $this->profile->find($idProfile))
+        if(!$profile = $this->profile->find($idProfile)) 
             return redirect()->back();
         
         if(!$request->permissions || count($request->permissions) == 0)

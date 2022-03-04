@@ -245,6 +245,12 @@ return [
             'can'  => 'profiles',
         ],
         [
+            'text' => 'Cargos',
+            'url'  => 'admin/roles',
+            'icon' => 'fas fa-address-card',
+            'can'  => 'roles',
+        ],
+        [
             'text' => 'Permissões',
             'url'  => 'admin/permission',
             'icon' => 'fas fa-lock',

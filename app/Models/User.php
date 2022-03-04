@@ -64,4 +64,13 @@ class User extends Authenticatable
      {
         return $this->belongsTo(Tenant::class);
      }
+
+     /**
+     * Get Roles
+     */
+    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

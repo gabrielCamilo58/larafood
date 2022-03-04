@@ -35,10 +35,10 @@
                         <strong>Expira em:</strong> {{$tenant->expires_at}}
                     </li>
                     <li>
-                        <strong>Ativa? [Y] sim, [N] não :</strong> {{$tenant->subscripton_active}}
+                        <strong>Ativa? [1] sim, [0] não :</strong> {{$tenant->subscripton_active}}
                     </li>
                     <li>
-                        <strong>Cancelada? [Y] sim, [N] não :</strong> {{$tenant->subscription_suspended}}
+                        <strong>Cancelada? [1] sim, [0] não :</strong> {{$tenant->subscription_suspended}}
                     </li>
 
                 </ul>

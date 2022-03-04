@@ -5,6 +5,37 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function ()
 {
 
+    /**
+     * Route Role x User
+     */
+    Route::post('role/user/{id}/available/search', 'ACL\RolesUserController@searchRoleUser')->name('roles_user_search');
+    Route::get('roles/users/{iduser}/available', 'ACL\RolesUserController@roles')->name('roles_users_available_roles');
+    Route::get('roles/{id}/user/{idPerssion}/detach', 'ACL\RolesUserController@detach')->name('roles_users_detach');
+    Route::post('roles/{id}/users/attach', 'ACL\RolesUserController@attach')->name('roles_users_attach');
+    Route::any('roles/{id}/users/available', 'ACL\RolesUserController@usersAvailable')->name('roles_users_available');
+    Route::get('roles/{id}/users', 'ACL\RolesUserController@users')->name('roles_users');
+    /**
+     * Route Permission x Roles
+     */
+    Route::post('role/permissions/{id}/available/search', 'ACL\PermissionRoleController@searchRolePermission')->name('roles_permission_search');
+    Route::get('roles/permissons/{idPermission}/available', 'ACL\PermissionRoleController@roles')->name('roles_permissons_available_roles');
+    Route::get('roles/{id}/permisson/{idPerssion}/detach', 'ACL\PermissionRoleController@detach')->name('roles_permissons_detach');
+    Route::post('roles/{id}/permissons/attach', 'ACL\PermissionRoleController@attach')->name('roles_permissons_attach');
+    Route::any('roles/{id}/permissons/available', 'ACL\PermissionRoleController@permissionsAvailable')->name('roles_permissons_available');
+    Route::get('roles/{id}/permissons', 'ACL\PermissionRoleController@permissions')->name('roles_permissons');
+    
+     /**
+     * Route Roles
+     */
+    route::any('roles/search','ACL\RoleController@search')->name('roles_search');
+    route::delete('roles/{id}/destroy', 'ACL\RoleController@destroy')->name('roles_destroy');
+    route::get('roles/{id}/show', 'ACL\RoleController@show')->name('roles_show');
+    route::put('roles/{id}/edit', 'ACL\RoleController@update')->name('roles_update');
+    route::get('roles/{id}/edit', 'ACL\RoleController@edit')->name('roles_edit');
+    route::post('roles/store', 'ACL\RoleController@store')->name('roles_store');
+    route::get('roles/create', 'ACL\RoleController@create')->name('roles_create');
+    Route::get('roles', 'ACL\RoleController@index')->name('roles_index');
+
     route::any('tenants/search','TenantsController@search')->name('tenants_search');
     route::delete('tenants/{id}/destroy', 'TenantsController@destroy')->name('tenants_destroy');
     route::get('tenants/{id}/show', 'TenantsController@show')->name('tenants_show');
