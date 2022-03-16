@@ -20,8 +20,8 @@ class ProductService
         return $this->productService->getProductByTenantId($tenant->id, $categories);
     }
 
-    public function getProductByUrl(string $url)
+    public function getProductByUuid(string $uuid)
     {
-        return $this->productService->getProductByUrl($url);
+        return $this->productService->getProductByUuid($uuid);
     }
 }

@@ -14,18 +14,47 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/tenants/{uuid}', 'App\Http\Controllers\Api\TenantApiController@show');
-Route::get('/tenants', 'App\Http\Controllers\Api\TenantApiController@index');
 
-Route::get('/categories/{url}', 'App\Http\Controllers\Api\CategoryApiController@show');
-Route::get('/categories', 'App\Http\Controllers\Api\CategoryApiController@categoriesByTenant');
 
-Route::get('/tables/{id}', 'App\Http\Controllers\Api\tablesApiController@show');
-Route::get('/tables', 'App\Http\Controllers\Api\tablesApiController@tablesByTenant');
 
-Route::get('/products/{url}', 'App\Http\Controllers\Api\ProductsApiController@show');
-Route::get('/products', 'App\Http\Controllers\Api\ProductsApiController@productsByTenant');
+Route::post('/sanctum/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/me', 'App\Http\Controllers\Api\Auth\AuthClientController@me');
+    Route::post('/logout', 'App\Http\Controllers\Api\Auth\AuthClientController@logout');
+
+    Route::post('/auth/v1/orders{identify}/evaluations', 'App\Http\Controllers\Api\EvaluationApiController@store');
+
+    Route::post('auth/v1/order', 'App\Http\Controllers\Api\OrderApiController@store');
+    Route::get('auth/v1/my-orders', 'App\Http\Controllers\Api\OrderApiController@myOrders');
+});
+
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'App\Http\Controllers\Api'
+], function() {
+
+Route::get('/tenants/{uuid}', 'TenantApiController@show');
+Route::get('/tenants', 'TenantApiController@index');
+
+Route::get('/categories/{identify}', 'CategoryApiController@show');
+Route::get('/categories', 'CategoryApiController@categoriesByTenant');
+
+Route::get('/tables/{identify}', 'tablesApiController@show');
+Route::get('/tables', 'tablesApiController@tablesByTenant');
+
+Route::get('/products/{identify}', 'ProductsApiController@show');
+Route::get('/products', 'ProductsApiController@productsByTenant');
+
+Route::post('/client', 'Auth\RegisterController@store');
+
+
+
+Route::get('/order/{identify}', 'OrderApiController@show');
+Route::post('/order', 'OrderApiController@store');
+
+
 });
