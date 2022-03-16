@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+ 
 
 Route::post('/sanctum/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
 
