@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateTable;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TableController extends Controller
 {
@@ -75,5 +76,18 @@ class TableController extends Controller
             return redirect()->back();
         
         return view('admin.pages.table.show', compact('table'));
+    }
+
+    public function qrcode($identify)
+    {
+        if(!$table = $this->repository->where('identify', $identify)->first())
+            return redirect()->back();
+        
+        $tenant = auth()->user()->tenant;
+
+        $uri = env('URI_CLIENT') . "/{$tenant->uuid}/{$table->uuid}";
+        
+      
+        return view('admin.pages.table.qrcode', compact('uri'));
     }
 }
