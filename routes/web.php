@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('auth')->group(function ()
 {
-
     /**
      * Route Role x User
      */
@@ -48,6 +47,7 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('aut
     /**
      * Route Table
      */
+    Route::get('tables/qrcode/{identify}', 'TableController@qrcode')->name('tables_qrcode');
     route::any('tables/search','TableController@search')->name('tables_search');
     route::delete('tables/{id}/destroy', 'TableController@destroy')->name('tables_destroy');
     route::get('tables/{id}/show', 'TableController@show')->name('tables_show');
@@ -181,7 +181,8 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware('aut
     /**
      * Home Dashboard
      */
-    Route::get('/', 'PlanController@index')->name('admin_index');
+  
+   Route::get('/', 'DashboardController@home')->name('admin_index');;
 });
 
 /**
